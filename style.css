@@ -1,0 +1,518 @@
+/* --- VARIABLES & RESET --- */
+:root {
+    /* Color Palette - Earthy Retro Tones */
+    --bg-color: #fdfbf7;
+    /* Off-white paper texture */
+    --text-color: #2d2d2d;
+    /* Soft Black */
+    --accent-primary: #e76f51;
+    /* Burnt Orange */
+    --accent-secondary: #2a9d8f;
+    /* Teal */
+    --accent-tertiary: #e9c46a;
+    /* Mustard Yellow */
+    --border-color: #1a1a1a;
+    /* Dark Border */
+
+    /* Typography */
+    --font-display: 'Abril Fatface', cursive;
+    --font-body: 'Space Grotesk', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    overflow-x: hidden;
+    /* Subtle dot grid pattern for technical/drafting feel */
+    background-image: radial-gradient(#d1d1d1 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+/* --- UTILITIES --- */
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+h1,
+h2,
+h3 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: 0.5px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.3s;
+}
+
+/* --- NAVIGATION --- */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 0;
+    margin-bottom: 2rem;
+    border-bottom: 3px solid var(--border-color);
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-family: var(--font-display);
+    color: var(--accent-primary);
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    font-weight: 600;
+    position: relative;
+    font-size: 1.1rem;
+}
+
+/* Creative underline hover effect */
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    background: var(--accent-secondary);
+    bottom: -5px;
+    left: 0;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+    border-radius: 2px;
+}
+
+.nav-links a:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+/* --- HERO SECTION --- */
+.hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+    min-height: 80vh;
+}
+
+.hero-text h1 {
+    font-size: 5rem;
+    line-height: 1;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 2;
+}
+
+/* Brush Stroke Effect behind text */
+.brush-highlight {
+    position: relative;
+    display: inline-block;
+    color: var(--text-color);
+}
+
+.brush-highlight::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: 15%;
+    left: -10px;
+    right: -10px;
+    bottom: 5%;
+    background: var(--accent-tertiary);
+    transform: rotate(-2deg);
+    border-radius: 20% 25% 20% 24%;
+    /* Organic shape */
+    opacity: 0.9;
+}
+
+.hero-subtitle {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--accent-secondary);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.hero-desc {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    max-width: 450px;
+    color: #555;
+}
+
+.hero-contact {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* Retro Button Style */
+.btn {
+    padding: 12px 30px;
+    border: 2px solid var(--border-color);
+    background: transparent;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 5px 5px 0px var(--border-color);
+    /* Irregular border radius for hand-drawn feel */
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+}
+
+.btn:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 8px 8px 0px var(--accent-primary);
+    background: white;
+}
+
+/* Hero Image Blob Animation */
+.hero-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.blob {
+    width: 350px;
+    height: 350px;
+    background: var(--accent-primary);
+    border: 3px solid var(--border-color);
+    /* Complex border radius for blob shape */
+    border-radius: 64% 36% 27% 73% / 59% 40% 60% 41%;
+    animation: morph 8s ease-in-out infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 12px 12px 0 var(--border-color);
+    position: relative;
+    overflow: hidden;
+}
+
+.profile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    /* Since the image has a background, contain/cover will both work depending on aspect ratio. Let's start with cover for a full look if it's square-ish. The blob is 350x350. The image looks rectangular portrait. */
+    object-fit: cover;
+    border-radius: inherit;
+    /* Optional: Slight parallax or float effect */
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes morph {
+    0% {
+        border-radius: 64% 36% 27% 73% / 59% 40% 60% 41%;
+    }
+
+    50% {
+        border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    }
+
+    100% {
+        border-radius: 64% 36% 27% 73% / 59% 40% 60% 41%;
+    }
+}
+
+/* --- SECTIONS GENERAL --- */
+section {
+    padding: 5rem 0;
+}
+
+.section-title {
+    font-size: 3.5rem;
+    margin-bottom: 4rem;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+/* --- SUMMARY BOX --- */
+.summary-box {
+    background: white;
+    border: 2px solid var(--border-color);
+    padding: 2.5rem;
+    box-shadow: 8px 8px 0 var(--accent-tertiary);
+    font-size: 1.2rem;
+    border-radius: 4px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* --- EXPERIENCE TIMELINE --- */
+.timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Vertical Line */
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 4px;
+    background: var(--border-color);
+    border-radius: 2px;
+}
+
+.job-card {
+    margin-left: 2.5rem;
+    margin-bottom: 3.5rem;
+    position: relative;
+    background: white;
+    border: 2px solid var(--border-color);
+    padding: 2rem;
+    box-shadow: 6px 6px 0 var(--accent-secondary);
+    transition: transform 0.2s ease;
+    border-radius: 8px;
+}
+
+.job-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 10px 10px 0 var(--accent-primary);
+}
+
+/* Timeline Dot */
+.job-card::before {
+    content: '';
+    position: absolute;
+    left: -3.1rem;
+    /* Adjust based on margin-left + line width */
+    top: 2rem;
+    width: 1.2rem;
+    height: 1.2rem;
+    background: var(--bg-color);
+    border: 4px solid var(--accent-primary);
+    border-radius: 50%;
+    z-index: 2;
+}
+
+.job-header h3 {
+    font-size: 1.6rem;
+    margin-bottom: 0.2rem;
+}
+
+.job-company {
+    display: block;
+    font-weight: 700;
+    color: var(--accent-secondary);
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    margin-bottom: 0.2rem;
+}
+
+.job-date {
+    display: block;
+    font-style: italic;
+    color: #666;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+}
+
+.job-details {
+    padding-left: 1.2rem;
+}
+
+.job-details li {
+    list-style-type: none;
+    position: relative;
+    margin-bottom: 0.8rem;
+}
+
+/* Custom bullet points */
+.job-details li::before {
+    content: '→';
+    position: absolute;
+    left: -1.5rem;
+    color: var(--accent-primary);
+    font-weight: bold;
+}
+
+/* --- PROJECTS GRID --- */
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2.5rem;
+}
+
+.project-card {
+    background: white;
+    border: 2px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 8px 8px 0 var(--border-color);
+}
+
+.project-header {
+    background: var(--accent-tertiary);
+    padding: 1.5rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.project-header h3 {
+    font-size: 1.5rem;
+    color: var(--text-color);
+}
+
+.project-body {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: space-between;
+}
+
+.project-body p {
+    margin-bottom: 1.5rem;
+}
+
+.project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.tag-pill {
+    font-size: 0.8rem;
+    padding: 4px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    background: #eee;
+    font-weight: 600;
+}
+
+/* --- SKILLS SECTION --- */
+.skills-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    justify-content: center;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.skill-sticker {
+    padding: 12px 24px;
+    background: white;
+    border: 2px solid var(--border-color);
+    font-weight: bold;
+    font-size: 1.1rem;
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+    cursor: default;
+}
+
+/* Random rotation effect for sticker vibe */
+.skill-sticker:nth-child(odd) {
+    transform: rotate(2deg);
+    background: #fff5f5;
+}
+
+.skill-sticker:nth-child(even) {
+    transform: rotate(-1.5deg);
+    background: #f0fff4;
+}
+
+.skill-sticker:nth-child(3n) {
+    transform: rotate(1deg);
+    background: #ebf8ff;
+}
+
+.skill-sticker:hover {
+    transform: scale(1.1) rotate(0deg) !important;
+    z-index: 10;
+    box-shadow: 5px 5px 0 var(--border-color);
+    border-color: var(--accent-primary);
+}
+
+/* --- FOOTER --- */
+footer {
+    background: var(--border-color);
+    color: var(--bg-color);
+    padding: 4rem 0;
+    text-align: center;
+    margin-top: 6rem;
+}
+
+.footer-content h2 {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--accent-tertiary);
+}
+
+.copyright {
+    font-size: 0.8rem;
+    opacity: 0.7;
+    margin-top: 2rem;
+}
+
+/* --- RESPONSIVE ADJUSTMENTS --- */
+@media (max-width: 768px) {
+    .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 2rem;
+    }
+
+    .hero-text h1 {
+        font-size: 3.5rem;
+    }
+
+    .hero-contact {
+        justify-content: center;
+    }
+
+    .timeline::before {
+        left: -5px;
+    }
+
+    .job-card {
+        margin-left: 1.5rem;
+        padding: 1.5rem;
+    }
+
+    .job-card::before {
+        left: -2.3rem;
+        width: 1rem;
+        height: 1rem;
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+    }
+
+    .blob {
+        width: 250px;
+        height: 250px;
+    }
+}
